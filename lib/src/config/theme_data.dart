@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 final darkTheme = ThemeData(
   primaryColor: Colors.amber, // Change this to your preferred primary color
   hintColor: Colors.black87,
-  scaffoldBackgroundColor: Colors.black,
+  scaffoldBackgroundColor: Colors.black87,
   appBarTheme: const AppBarTheme(
     backgroundColor: Colors.transparent,
   ),
@@ -15,13 +16,13 @@ final darkTheme = ThemeData(
   ),
 
   // Typography
-  textTheme: const TextTheme(
-    titleLarge: TextStyle(
+  textTheme: TextTheme(
+    titleLarge: GoogleFonts.roboto(
       fontSize: 20.0,
       fontWeight: FontWeight.bold,
       color: Colors.white70, // Text color
     ),
-    bodyMedium: TextStyle(
+    bodyMedium: GoogleFonts.roboto(
       fontSize: 16.0,
       color: Colors.white70, // Text color
     ),

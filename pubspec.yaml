@@ -38,6 +38,7 @@ dependencies:
   sqflite: ^2.3.0
   path_provider: ^2.1.1
   provider: ^6.0.5
+  google_fonts: ^6.1.0
 
 dev_dependencies:
   flutter_test:

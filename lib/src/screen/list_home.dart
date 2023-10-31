@@ -18,33 +18,8 @@ class _ListHomeState extends State<ListHome> {
       appBar: AppBar(
         title: const Text(
           'Notes',
-          style: TextStyle(fontSize: 40.0, color: Colors.amber),
+          style: TextStyle(fontSize: 34.0, color: Colors.amber),
         ),
-        // actions: <Widget>[
-        //   IconButton(
-        //     icon: const Icon(
-        //       Icons.search,
-        //       color: Colors.white70,
-        //       size: 32,
-        //     ),
-        //     onPressed: () {
-        //       // do something
-        //     },
-        //   ),
-        //   IconButton(
-        //     icon: const Icon(
-        //       Icons.settings,
-        //       color: Colors.white70,
-        //       size: 32,
-        //     ),
-        //     onPressed: () {
-        //       // do something
-        //     },
-        //   ),
-        //   const SizedBox(
-        //     width: 12,
-        //   )
-        // ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -63,7 +38,12 @@ class _ListHomeState extends State<ListHome> {
             builder: ((context, notesProviders, chile) => Column(
                   children: <Widget>[
                     noteCreate(context),
-                    ListView.builder(
+                    GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 12.0,
+                              crossAxisSpacing: 12.0),
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: notesProviders.notes.length,

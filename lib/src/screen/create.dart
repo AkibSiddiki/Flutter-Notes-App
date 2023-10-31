@@ -23,10 +23,13 @@ class _CreateNoteState extends State<CreateNote> {
     return Consumer<NotesProviders>(
       builder: ((context, notesProviders, child) => WillPopScope(
             onWillPop: () async {
-              notesProviders.insertNote(
-                titleController.text,
-                detailsController.text,
-              );
+              if (titleController.text.isNotEmpty ||
+                  detailsController.text.isNotEmpty) {
+                notesProviders.insertNote(
+                  titleController.text,
+                  detailsController.text,
+                );
+              }
               return true; // Allow the page to be popped
             },
             child: Scaffold(
@@ -34,13 +37,16 @@ class _CreateNoteState extends State<CreateNote> {
                 actions: <Widget>[
                   IconButton(
                     icon: const Icon(
-                      Icons.save,
+                      Icons.check,
                       color: Colors.white,
                       size: 24,
                     ),
                     onPressed: () {
-                      notesProviders.insertNote(
-                          titleController.text, detailsController.text);
+                      if (titleController.text.isNotEmpty ||
+                          detailsController.text.isNotEmpty) {
+                        notesProviders.insertNote(
+                            titleController.text, detailsController.text);
+                      }
                       Navigator.pop(context);
                     },
                   ),
@@ -55,6 +61,9 @@ class _CreateNoteState extends State<CreateNote> {
                   children: [
                     TextField(
                       controller: titleController,
+                      style: const TextStyle(fontSize: 22.0),
+                      minLines: 1,
+                      maxLines: 4,
                       decoration: const InputDecoration(
                           hintText: 'Title',
                           hintStyle:
@@ -63,6 +72,8 @@ class _CreateNoteState extends State<CreateNote> {
                     ),
                     TextField(
                       controller: detailsController,
+                      keyboardType: TextInputType.multiline,
+                      maxLines: null,
                       decoration: const InputDecoration(
                           hintText: 'Note',
                           hintStyle:

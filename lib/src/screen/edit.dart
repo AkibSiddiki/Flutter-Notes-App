@@ -15,6 +15,7 @@ class EditNote extends StatefulWidget {
 class _EditNoteState extends State<EditNote> {
   late TextEditingController titleController;
   late TextEditingController detailsController;
+  bool _loading = true;
 
   @override
   void initState() {
@@ -28,6 +29,7 @@ class _EditNoteState extends State<EditNote> {
     setState(() {
       titleController = TextEditingController(text: note.title);
       detailsController = TextEditingController(text: note.details);
+      _loading = false;
     });
   }
 
@@ -60,7 +62,7 @@ class _EditNoteState extends State<EditNote> {
             ),
             IconButton(
               icon: const Icon(
-                Icons.save,
+                Icons.check,
                 color: Colors.white,
                 size: 24,
               ),
@@ -77,29 +79,38 @@ class _EditNoteState extends State<EditNote> {
             )
           ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            children: [
-              TextField(
-                controller: titleController,
-                decoration: const InputDecoration(
-                  hintText: 'Title',
-                  hintStyle: TextStyle(color: Colors.white54, fontSize: 22),
-                  border: InputBorder.none,
+        body: _loading
+            ? const SizedBox()
+            : Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: titleController,
+                      style: const TextStyle(fontSize: 22.0),
+                      minLines: 1,
+                      maxLines: 4,
+                      decoration: const InputDecoration(
+                        hintText: 'Title',
+                        hintStyle:
+                            TextStyle(color: Colors.white54, fontSize: 22),
+                        border: InputBorder.none,
+                      ),
+                    ),
+                    TextField(
+                      controller: detailsController,
+                      keyboardType: TextInputType.multiline,
+                      maxLines: null,
+                      decoration: const InputDecoration(
+                        hintText: 'Note',
+                        hintStyle:
+                            TextStyle(color: Colors.white54, fontSize: 16),
+                        border: InputBorder.none,
+                      ),
+                    )
+                  ],
                 ),
               ),
-              TextField(
-                controller: detailsController,
-                decoration: const InputDecoration(
-                  hintText: 'Note',
-                  hintStyle: TextStyle(color: Colors.white54, fontSize: 16),
-                  border: InputBorder.none,
-                ),
-              )
-            ],
-          ),
-        ),
       ),
     );
   }
