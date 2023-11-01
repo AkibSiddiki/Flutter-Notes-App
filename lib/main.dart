@@ -1,4 +1,5 @@
 import 'package:notes/src/screen/create.dart';
+import 'package:notes/src/screen/splash_screen.dart';
 import 'package:notes/src/service/notes_provider.dart';
 import 'package:notes/src/service/sqlite_helper.dart';
 import 'package:flutter/material.dart';
@@ -19,13 +20,12 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => NotesProviders()..updateNotes(),
+          create: (context) => NotesProviders()..selectNotes(),
         )
       ],
       child: MaterialApp(
@@ -36,7 +36,8 @@ class MyApp extends StatelessWidget {
         themeMode: AppSetting().themeMode,
         initialRoute: '/',
         routes: {
-          '/': (context) => const ListHome(),
+          '/': (context) => const SplashScreen(),
+          '/home': (context) => const ListHome(),
           '/create': (context) => const CreateNote(),
           // '/edit': (context) => EditNote(id: id),
         },

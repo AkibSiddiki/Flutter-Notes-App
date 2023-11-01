@@ -4,9 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 final darkTheme = ThemeData(
   primaryColor: Colors.amber, // Change this to your preferred primary color
   hintColor: Colors.black87,
-  scaffoldBackgroundColor: Colors.black87,
+  scaffoldBackgroundColor: const Color.fromARGB(255, 15, 15, 15),
   appBarTheme: const AppBarTheme(
-    backgroundColor: Colors.transparent,
+    backgroundColor: Color.fromARGB(255, 15, 15, 15),
   ),
 
   colorScheme: const ColorScheme.dark(

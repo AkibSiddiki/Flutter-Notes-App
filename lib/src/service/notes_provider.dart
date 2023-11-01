@@ -4,10 +4,9 @@ import 'package:notes/src/service/sqlite_helper.dart';
 
 class NotesProviders extends ChangeNotifier {
   final dbHelper = DatabaseHelper();
-
   List<Note> notes = [];
 
-  void updateNotes() async {
+  void selectNotes() async {
     await dbHelper.init();
     notes = await dbHelper.queryNotes();
     notifyListeners();
@@ -15,18 +14,15 @@ class NotesProviders extends ChangeNotifier {
 
   void insertNote(title, details) async {
     await dbHelper.init();
-
-    // row to insert
     Map<String, dynamic> row = {
       DatabaseHelper.noteTitle: title,
       DatabaseHelper.noteDetails: details,
     };
-
     await dbHelper.insert(row);
-    updateNotes();
+    selectNotes();
   }
 
-  Future<Note> getNote(int id) async {
+  Future<Note> selectNote(int id) async {
     await dbHelper.init();
     List<Note> onenotes = await dbHelper.queryNote(id);
     return onenotes.first;
@@ -34,20 +30,18 @@ class NotesProviders extends ChangeNotifier {
 
   void updateNote(int id, String title, String details) async {
     await dbHelper.init();
-
     Map<String, dynamic> row = {
       DatabaseHelper.noteId: id,
       DatabaseHelper.noteTitle: title,
       DatabaseHelper.noteDetails: details,
     };
-
     await dbHelper.update(row);
-    updateNotes();
+    selectNotes();
   }
 
   void deleteNote(int id) async {
     await dbHelper.init();
     await dbHelper.delete(id);
-    updateNotes();
+    selectNotes();
   }
 }

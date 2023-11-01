@@ -18,7 +18,7 @@ Widget noteCreate(context) {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Create...',
+                'Take Note...',
               ),
               Icon(
                 Icons.add,

@@ -20,12 +20,12 @@ class _EditNoteState extends State<EditNote> {
   @override
   void initState() {
     super.initState();
-    getNote();
+    selectNote();
   }
 
-  getNote() async {
+  selectNote() async {
     final notesProvider = Provider.of<NotesProviders>(context, listen: false);
-    final Note note = await notesProvider.getNote(widget.id);
+    final Note note = await notesProvider.selectNote(widget.id);
     setState(() {
       titleController = TextEditingController(text: note.title);
       detailsController = TextEditingController(text: note.details);
@@ -48,12 +48,11 @@ class _EditNoteState extends State<EditNote> {
           actions: <Widget>[
             IconButton(
               icon: const Icon(
-                Icons.delete, // Add delete icon
-                color: Colors.white, // You can customize the color
+                Icons.delete,
+                color: Colors.white,
                 size: 24,
               ),
               onPressed: () {
-                // Handle delete action here
                 final notesProvider =
                     Provider.of<NotesProviders>(context, listen: false);
                 notesProvider.deleteNote(widget.id);
@@ -83,32 +82,34 @@ class _EditNoteState extends State<EditNote> {
             ? const SizedBox()
             : Padding(
                 padding: const EdgeInsets.all(12),
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: titleController,
-                      style: const TextStyle(fontSize: 22.0),
-                      minLines: 1,
-                      maxLines: 4,
-                      decoration: const InputDecoration(
-                        hintText: 'Title',
-                        hintStyle:
-                            TextStyle(color: Colors.white54, fontSize: 22),
-                        border: InputBorder.none,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      TextField(
+                        controller: titleController,
+                        style: const TextStyle(fontSize: 22.0),
+                        minLines: 1,
+                        maxLines: 4,
+                        decoration: const InputDecoration(
+                          hintText: 'Title',
+                          hintStyle:
+                              TextStyle(color: Colors.white54, fontSize: 22),
+                          border: InputBorder.none,
+                        ),
                       ),
-                    ),
-                    TextField(
-                      controller: detailsController,
-                      keyboardType: TextInputType.multiline,
-                      maxLines: null,
-                      decoration: const InputDecoration(
-                        hintText: 'Note',
-                        hintStyle:
-                            TextStyle(color: Colors.white54, fontSize: 16),
-                        border: InputBorder.none,
-                      ),
-                    )
-                  ],
+                      TextField(
+                        controller: detailsController,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        decoration: const InputDecoration(
+                          hintText: 'Note',
+                          hintStyle:
+                              TextStyle(color: Colors.white54, fontSize: 16),
+                          border: InputBorder.none,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
       ),

@@ -57,30 +57,32 @@ class _CreateNoteState extends State<CreateNote> {
               ),
               body: Padding(
                 padding: const EdgeInsets.all(12),
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: titleController,
-                      style: const TextStyle(fontSize: 22.0),
-                      minLines: 1,
-                      maxLines: 4,
-                      decoration: const InputDecoration(
-                          hintText: 'Title',
-                          hintStyle:
-                              TextStyle(color: Colors.white54, fontSize: 22),
-                          border: InputBorder.none),
-                    ),
-                    TextField(
-                      controller: detailsController,
-                      keyboardType: TextInputType.multiline,
-                      maxLines: null,
-                      decoration: const InputDecoration(
-                          hintText: 'Note',
-                          hintStyle:
-                              TextStyle(color: Colors.white54, fontSize: 16),
-                          border: InputBorder.none),
-                    )
-                  ],
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      TextField(
+                        controller: titleController,
+                        style: const TextStyle(fontSize: 22.0),
+                        minLines: 1,
+                        maxLines: 4,
+                        decoration: const InputDecoration(
+                            hintText: 'Title',
+                            hintStyle:
+                                TextStyle(color: Colors.white54, fontSize: 22),
+                            border: InputBorder.none),
+                      ),
+                      TextField(
+                        controller: detailsController,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        decoration: const InputDecoration(
+                            hintText: 'Note',
+                            hintStyle:
+                                TextStyle(color: Colors.white54, fontSize: 16),
+                            border: InputBorder.none),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

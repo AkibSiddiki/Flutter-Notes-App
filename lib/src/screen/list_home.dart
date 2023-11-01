@@ -16,6 +16,7 @@ class _ListHomeState extends State<ListHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        shadowColor: Colors.transparent,
         title: const Text(
           'Notes',
           style: TextStyle(fontSize: 34.0, color: Colors.amber),
@@ -42,6 +43,7 @@ class _ListHomeState extends State<ListHome> {
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
+                              mainAxisExtent: 140,
                               mainAxisSpacing: 12.0,
                               crossAxisSpacing: 12.0),
                       shrinkWrap: true,

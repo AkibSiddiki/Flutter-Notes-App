@@ -27,19 +27,19 @@ Widget noteCard(Note n, context) {
           children: <Widget>[
             Text(
               n.title,
-              style: const TextStyle(color: Colors.white, fontSize: 18),
               maxLines: 2,
+              style: const TextStyle(color: Colors.white, fontSize: 18),
             ),
             const SizedBox(
               height: 8,
             ),
             Text(
               n.details,
+              maxLines: 3,
               style: const TextStyle(
                 color: Colors.white60,
                 fontSize: 16,
               ),
-              maxLines: 3,
             ),
           ]),
     ),
