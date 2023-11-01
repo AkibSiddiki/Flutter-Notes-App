@@ -5,10 +5,17 @@ import 'package:notes/src/service/sqlite_helper.dart';
 class NotesProviders extends ChangeNotifier {
   final dbHelper = DatabaseHelper();
   List<Note> notes = [];
+  List<Note> trashnotes = [];
 
   void selectNotes() async {
     await dbHelper.init();
     notes = await dbHelper.queryNotes();
+    notifyListeners();
+  }
+
+  void selectTrashNotes() async {
+    await dbHelper.init();
+    trashnotes = await dbHelper.queryTrashNotes();
     notifyListeners();
   }
 
@@ -41,7 +48,19 @@ class NotesProviders extends ChangeNotifier {
 
   void deleteNote(int id) async {
     await dbHelper.init();
-    await dbHelper.delete(id);
+    await dbHelper.moveToTrash(id);
     selectNotes();
+  }
+
+  void deleteNotePermanent(int id) async {
+    await dbHelper.init();
+    await dbHelper.delete(id);
+    selectTrashNotes();
+  }
+
+  void deleteTrashPermanent() async {
+    await dbHelper.init();
+    await dbHelper.deleteAllTrash();
+    selectTrashNotes();
   }
 }

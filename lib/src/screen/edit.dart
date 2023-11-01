@@ -16,6 +16,7 @@ class _EditNoteState extends State<EditNote> {
   late TextEditingController titleController;
   late TextEditingController detailsController;
   bool _loading = true;
+  late Note pnote;
 
   @override
   void initState() {
@@ -27,6 +28,7 @@ class _EditNoteState extends State<EditNote> {
     final notesProvider = Provider.of<NotesProviders>(context, listen: false);
     final Note note = await notesProvider.selectNote(widget.id);
     setState(() {
+      pnote = note;
       titleController = TextEditingController(text: note.title);
       detailsController = TextEditingController(text: note.details);
       _loading = false;
@@ -55,7 +57,11 @@ class _EditNoteState extends State<EditNote> {
               onPressed: () {
                 final notesProvider =
                     Provider.of<NotesProviders>(context, listen: false);
-                notesProvider.deleteNote(widget.id);
+                if (pnote.delete == 0) {
+                  notesProvider.deleteNote(widget.id);
+                } else {
+                  notesProvider.deleteNotePermanent(widget.id);
+                }
                 Navigator.pop(context);
               },
             ),

@@ -13,6 +13,7 @@ class DatabaseHelper {
   static const noteId = '_id';
   static const noteTitle = 'title';
   static const noteDetails = 'details';
+  static const nodedelete = '_delete';
 
   late Database _db;
 
@@ -32,7 +33,8 @@ class DatabaseHelper {
           CREATE TABLE $table (
             $noteId INTEGER PRIMARY KEY,
             $noteTitle TEXT NOT NULL,
-            $noteDetails INTEGER NOT NULL
+            $noteDetails INTEGER NOT NULL,
+            $nodedelete INTEGER NOT NULL DEFAULT 0
           )
           ''');
   }
@@ -43,14 +45,27 @@ class DatabaseHelper {
 
   Future<List<Note>> queryNotes() async {
     final List<Map<String, dynamic>> maps =
-        await _db.query(table, orderBy: '_id DESC');
+        await _db.query(table, where: '_delete = 0', orderBy: '_id DESC');
 
     return List.generate(maps.length, (i) {
       return Note(
-        id: maps[i]['_id'] as int,
-        title: maps[i]['title'] as String,
-        details: maps[i]['details'] as String,
-      );
+          id: maps[i]['_id'] as int,
+          title: maps[i]['title'] as String,
+          details: maps[i]['details'] as String,
+          delete: maps[i]['_delete'] as int);
+    });
+  }
+
+  Future<List<Note>> queryTrashNotes() async {
+    final List<Map<String, dynamic>> maps =
+        await _db.query(table, where: '_delete = 1', orderBy: '_id DESC');
+
+    return List.generate(maps.length, (i) {
+      return Note(
+          id: maps[i]['_id'] as int,
+          title: maps[i]['title'] as String,
+          details: maps[i]['details'] as String,
+          delete: maps[i]['_delete'] as int);
     });
   }
 
@@ -60,10 +75,10 @@ class DatabaseHelper {
 
     return List.generate(maps.length, (i) {
       return Note(
-        id: maps[i]['_id'] as int,
-        title: maps[i]['title'] as String,
-        details: maps[i]['details'] as String,
-      );
+          id: maps[i]['_id'] as int,
+          title: maps[i]['title'] as String,
+          details: maps[i]['details'] as String,
+          delete: maps[i]['_delete'] as int);
     });
   }
 
@@ -82,11 +97,28 @@ class DatabaseHelper {
     );
   }
 
+  Future<int> moveToTrash(int id) async {
+    return await _db.update(
+      table,
+      {DatabaseHelper.nodedelete: 1},
+      where: '$noteId = ?',
+      whereArgs: [id],
+    );
+  }
+
   Future<int> delete(int id) async {
     return await _db.delete(
       table,
       where: '$noteId = ?',
       whereArgs: [id],
+    );
+  }
+
+  Future<int> deleteAllTrash() async {
+    return await _db.delete(
+      table,
+      where: '$nodedelete = ?',
+      whereArgs: [1],
     );
   }
 }

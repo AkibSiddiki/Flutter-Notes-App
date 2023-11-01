@@ -1,12 +1,13 @@
+import 'package:flutter/material.dart';
+import 'package:notes/src/screen/list_trash.dart';
+import 'package:provider/provider.dart';
 import 'package:notes/src/screen/create.dart';
 import 'package:notes/src/screen/splash_screen.dart';
 import 'package:notes/src/service/notes_provider.dart';
 import 'package:notes/src/service/sqlite_helper.dart';
-import 'package:flutter/material.dart';
 import 'package:notes/src/config/settings.dart';
 import 'package:notes/src/config/theme_data.dart';
 import 'package:notes/src/screen/list_home.dart';
-import 'package:provider/provider.dart';
 
 final dbHelper = DatabaseHelper();
 
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
           '/': (context) => const SplashScreen(),
           '/home': (context) => const ListHome(),
           '/create': (context) => const CreateNote(),
-          // '/edit': (context) => EditNote(id: id),
+          '/trash': (context) => const ListTrash(),
         },
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notes/src/service/notes_provider.dart';
+import 'package:notes/src/widget/drawer.dart';
 import 'package:notes/src/widget/note_card.dart';
 import 'package:notes/src/widget/note_create.dart';
 import 'package:provider/provider.dart';
@@ -17,9 +18,20 @@ class _ListHomeState extends State<ListHome> {
     return Scaffold(
       appBar: AppBar(
         shadowColor: Colors.transparent,
-        title: const Text(
-          'Notes',
-          style: TextStyle(fontSize: 34.0, color: Colors.amber),
+        title: Row(
+          children: [
+            Image.asset(
+              'assets/icon.png',
+              height: 28,
+            ),
+            const SizedBox(
+              width: 12,
+            ),
+            const Text(
+              'Notes',
+              style: TextStyle(fontSize: 34.0, color: Colors.amber),
+            ),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -32,6 +44,7 @@ class _ListHomeState extends State<ListHome> {
           color: Colors.black,
         ), // You can change the icon as needed
       ),
+      drawer: const MyDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: SingleChildScrollView(
