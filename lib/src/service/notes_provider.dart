@@ -6,12 +6,25 @@ class NotesProviders extends ChangeNotifier {
   final dbHelper = DatabaseHelper();
   List<Note> notes = [];
   List<Note> trashnotes = [];
+  List<Note> searchResult = [];
 
   void selectNotes() async {
     await dbHelper.init();
     notes = await dbHelper.queryNotes();
     notifyListeners();
     await dbHelper.closeDatabase();
+  }
+
+  void searchNotes(String keywords) async {
+    await dbHelper.init();
+    searchResult = await dbHelper.searchInDatabase(keywords);
+    notifyListeners();
+    await dbHelper.closeDatabase();
+  }
+
+  void resultClear() {
+    searchResult = [];
+    notifyListeners();
   }
 
   void selectTrashNotes() async {

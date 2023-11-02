@@ -12,17 +12,6 @@ class ListTrash extends StatefulWidget {
 }
 
 class _ListTrashState extends State<ListTrash> {
-  @override
-  void initState() {
-    super.initState();
-    // selectNote();
-  }
-
-  // selectNote() {
-  //   final notesProvider = Provider.of<NotesProviders>(context, listen: false);
-  //   notesProvider.selectTrashNotes();
-  // }
-
   void showDeleteConfirmationDialog(
       BuildContext context, Function onDeleteConfirmed) {
     showDialog(

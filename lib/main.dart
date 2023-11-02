@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notes/src/screen/list_trash.dart';
+import 'package:notes/src/screen/search.dart';
 import 'package:provider/provider.dart';
 import 'package:notes/src/screen/create.dart';
 import 'package:notes/src/screen/splash_screen.dart';
@@ -13,7 +14,6 @@ final dbHelper = DatabaseHelper();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // initialize the database
   await dbHelper.init();
   runApp(const MyApp());
 }
@@ -43,6 +43,7 @@ class MyApp extends StatelessWidget {
           '/home': (context) => const ListHome(),
           '/create': (context) => const CreateNote(),
           '/trash': (context) => const ListTrash(),
+          '/search': (context) => const SearchPage()
         },
       ),
     );

@@ -86,6 +86,27 @@ class DatabaseHelper {
     });
   }
 
+  Future<List<Note>> searchInDatabase(String searchTerm) async {
+    List<Note> n = [];
+    if (searchTerm.isEmpty) {
+      return n;
+    } else {
+      final List<Map<String, dynamic>> maps = await _db.query(
+        table,
+        where: '($noteTitle LIKE ? OR $noteDetails LIKE ?) AND $noteDelete = ?',
+        whereArgs: ['%$searchTerm%', '%$searchTerm%', 0],
+      );
+
+      return List.generate(maps.length, (i) {
+        return Note(
+            id: maps[i]['_id'] as int,
+            title: maps[i]['title'] as String,
+            details: maps[i]['details'] as String,
+            delete: maps[i]['_delete'] as int);
+      });
+    }
+  }
+
   Future<int> queryRowCount() async {
     final results = await _db.rawQuery('SELECT COUNT(*) FROM $table');
     return Sqflite.firstIntValue(results) ?? 0;
