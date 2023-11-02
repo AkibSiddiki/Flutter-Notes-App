@@ -9,7 +9,7 @@ Widget noteCreate(context) {
         },
         child: Container(
           width: double.infinity,
-          padding: const EdgeInsets.all(12.0),
+          padding: const EdgeInsets.all(10.0),
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(12.0)),
             color: Color.fromARGB(255, 26, 26, 26),
@@ -22,7 +22,6 @@ Widget noteCreate(context) {
               ),
               Icon(
                 Icons.add,
-                color: Colors.amber,
               )
             ],
           ),

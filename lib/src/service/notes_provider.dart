@@ -11,12 +11,14 @@ class NotesProviders extends ChangeNotifier {
     await dbHelper.init();
     notes = await dbHelper.queryNotes();
     notifyListeners();
+    await dbHelper.closeDatabase();
   }
 
   void selectTrashNotes() async {
     await dbHelper.init();
     trashnotes = await dbHelper.queryTrashNotes();
     notifyListeners();
+    await dbHelper.closeDatabase();
   }
 
   void insertNote(title, details) async {
@@ -26,12 +28,14 @@ class NotesProviders extends ChangeNotifier {
       DatabaseHelper.noteDetails: details,
     };
     await dbHelper.insert(row);
+    await dbHelper.closeDatabase();
     selectNotes();
   }
 
   Future<Note> selectNote(int id) async {
     await dbHelper.init();
     List<Note> onenotes = await dbHelper.queryNote(id);
+    await dbHelper.closeDatabase();
     return onenotes.first;
   }
 
@@ -43,24 +47,28 @@ class NotesProviders extends ChangeNotifier {
       DatabaseHelper.noteDetails: details,
     };
     await dbHelper.update(row);
+    await dbHelper.closeDatabase();
     selectNotes();
   }
 
   void deleteNote(int id) async {
     await dbHelper.init();
     await dbHelper.moveToTrash(id);
+    await dbHelper.closeDatabase();
     selectNotes();
   }
 
   void deleteNotePermanent(int id) async {
     await dbHelper.init();
     await dbHelper.delete(id);
+    await dbHelper.closeDatabase();
     selectTrashNotes();
   }
 
   void deleteTrashPermanent() async {
     await dbHelper.init();
     await dbHelper.deleteAllTrash();
+    await dbHelper.closeDatabase();
     selectTrashNotes();
   }
 }

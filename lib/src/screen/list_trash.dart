@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:notes/src/service/notes_provider.dart';
 import 'package:notes/src/widget/note_card.dart';
 import 'package:provider/provider.dart';
@@ -82,18 +83,15 @@ class _ListTrashState extends State<ListTrash> {
                         padding: const EdgeInsets.all(12.0),
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                          color: Color.fromARGB(255, 25, 8, 8),
+                          color: Color.fromARGB(255, 26, 26, 26),
                         ),
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
-                              Icons.delete,
-                              color: Colors.red,
+                              Icons.delete_forever,
                             ),
-                            SizedBox(
-                              width: 12,
-                            ),
+                            Gap(12),
                             Text(
                               'Clear Trash',
                             ),
@@ -101,9 +99,7 @@ class _ListTrashState extends State<ListTrash> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 12,
-                    ),
+                    const Gap(12),
                     GridView.builder(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(

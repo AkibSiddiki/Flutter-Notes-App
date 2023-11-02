@@ -13,7 +13,7 @@ class DatabaseHelper {
   static const noteId = '_id';
   static const noteTitle = 'title';
   static const noteDetails = 'details';
-  static const nodedelete = '_delete';
+  static const noteDelete = '_delete';
 
   late Database _db;
 
@@ -27,6 +27,10 @@ class DatabaseHelper {
     );
   }
 
+  Future<void> closeDatabase() async {
+    await _db.close();
+  }
+
   // SQL code to create the database table
   Future _onCreate(Database db, int version) async {
     await db.execute('''
@@ -34,7 +38,7 @@ class DatabaseHelper {
             $noteId INTEGER PRIMARY KEY,
             $noteTitle TEXT NOT NULL,
             $noteDetails INTEGER NOT NULL,
-            $nodedelete INTEGER NOT NULL DEFAULT 0
+            $noteDelete INTEGER NOT NULL DEFAULT 0
           )
           ''');
   }
@@ -100,7 +104,7 @@ class DatabaseHelper {
   Future<int> moveToTrash(int id) async {
     return await _db.update(
       table,
-      {DatabaseHelper.nodedelete: 1},
+      {DatabaseHelper.noteDelete: 1},
       where: '$noteId = ?',
       whereArgs: [id],
     );
@@ -117,7 +121,7 @@ class DatabaseHelper {
   Future<int> deleteAllTrash() async {
     return await _db.delete(
       table,
-      where: '$nodedelete = ?',
+      where: '$noteDelete = ?',
       whereArgs: [1],
     );
   }

@@ -14,11 +14,14 @@ Widget noteCard(Note n, context) {
       );
     },
     child: Container(
-      padding: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(12.0)),
         border: Border.all(
-            color: const Color.fromARGB(26, 255, 192, 2), width: 2.0),
+            color: n.delete == 1
+                ? const Color.fromARGB(33, 247, 241, 223)
+                : const Color.fromARGB(34, 255, 193, 7),
+            width: 2.0),
         color: const Color.fromARGB(255, 26, 26, 26),
       ),
       child: Column(
@@ -28,7 +31,7 @@ Widget noteCard(Note n, context) {
             Text(
               n.title,
               maxLines: 2,
-              style: const TextStyle(color: Colors.white, fontSize: 18),
+              style: const TextStyle(color: Colors.white, fontSize: 17),
             ),
             const SizedBox(
               height: 8,
@@ -38,7 +41,7 @@ Widget noteCard(Note n, context) {
               maxLines: 3,
               style: const TextStyle(
                 color: Colors.white60,
-                fontSize: 16,
+                fontSize: 15,
               ),
             ),
           ]),
