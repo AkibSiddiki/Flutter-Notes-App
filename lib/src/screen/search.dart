@@ -29,7 +29,9 @@ class SearchPageState extends State<SearchPage> {
                         child: TextField(
                           controller: searchWordController,
                           decoration: const InputDecoration(
-                              hintText: "Search...", border: InputBorder.none),
+                              hintText: "Search...",
+                              hintStyle: TextStyle(color: Colors.white54),
+                              border: InputBorder.none),
                         ),
                       ),
                       IconButton.filled(

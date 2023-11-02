@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:notes/src/service/notes_provider.dart';
 import 'package:notes/src/widget/note_card.dart';
+import 'package:notes/src/widget/notice_trash.dart';
 import 'package:provider/provider.dart';
 
 class ListTrash extends StatefulWidget {
@@ -58,6 +59,7 @@ class _ListTrashState extends State<ListTrash> {
           child: Consumer<NotesProviders>(
             builder: ((context, notesProviders, chile) => Column(
                   children: <Widget>[
+                    notice(context),
                     GestureDetector(
                       onTap: () {
                         showDeleteConfirmationDialog(

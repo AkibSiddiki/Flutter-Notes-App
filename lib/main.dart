@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => NotesProviders()
+            ..deleteOldTrash()
             ..selectNotes()
             ..selectTrashNotes(),
         )

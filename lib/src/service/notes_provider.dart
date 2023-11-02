@@ -39,6 +39,9 @@ class NotesProviders extends ChangeNotifier {
     Map<String, dynamic> row = {
       DatabaseHelper.noteTitle: title,
       DatabaseHelper.noteDetails: details,
+      DatabaseHelper.noteInsertDatetime: DateTime.now().toIso8601String(),
+      DatabaseHelper.noteUpdateDatetime: DateTime.now().toIso8601String(),
+      DatabaseHelper.noteDeleteDatetime: ''
     };
     await dbHelper.insert(row);
     await dbHelper.closeDatabase();
@@ -58,6 +61,7 @@ class NotesProviders extends ChangeNotifier {
       DatabaseHelper.noteId: id,
       DatabaseHelper.noteTitle: title,
       DatabaseHelper.noteDetails: details,
+      DatabaseHelper.noteUpdateDatetime: DateTime.now().toIso8601String()
     };
     await dbHelper.update(row);
     await dbHelper.closeDatabase();
@@ -90,6 +94,13 @@ class NotesProviders extends ChangeNotifier {
   void deleteTrashPermanent() async {
     await dbHelper.init();
     await dbHelper.deleteAllTrash();
+    await dbHelper.closeDatabase();
+    selectTrashNotes();
+  }
+
+  void deleteOldTrash() async {
+    await dbHelper.init();
+    await dbHelper.deleteOldTrashNotes();
     await dbHelper.closeDatabase();
     selectTrashNotes();
   }

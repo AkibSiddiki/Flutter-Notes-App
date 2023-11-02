@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:notes/src/model/notes.dart';
 import 'package:notes/src/service/notes_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class EditNote extends StatefulWidget {
   final int id;
@@ -34,6 +35,11 @@ class _EditNoteState extends State<EditNote> {
       detailsController = TextEditingController(text: note.details);
       _loading = false;
     });
+  }
+
+  String dateTimeFormate(String dt) {
+    DateTime dateTime = DateTime.parse(dt);
+    return DateFormat("dd MMM").format(dateTime);
   }
 
   @override
@@ -98,6 +104,7 @@ class _EditNoteState extends State<EditNote> {
                 padding: const EdgeInsets.all(12),
                 child: SingleChildScrollView(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextField(
                         controller: titleController,
@@ -110,6 +117,10 @@ class _EditNoteState extends State<EditNote> {
                               TextStyle(color: Colors.white54, fontSize: 22),
                           border: InputBorder.none,
                         ),
+                      ),
+                      Text(
+                        dateTimeFormate(pnote.updateDatetime),
+                        style: TextStyle(fontSize: 14, color: Colors.grey[400]),
                       ),
                       TextField(
                         controller: detailsController,

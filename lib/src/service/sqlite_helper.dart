@@ -14,6 +14,9 @@ class DatabaseHelper {
   static const noteTitle = 'title';
   static const noteDetails = 'details';
   static const noteDelete = '_delete';
+  static const noteInsertDatetime = 'insertDatetime';
+  static const noteUpdateDatetime = 'updateDatetime';
+  static const noteDeleteDatetime = 'deleteDatetime';
 
   late Database _db;
 
@@ -38,7 +41,10 @@ class DatabaseHelper {
             $noteId INTEGER PRIMARY KEY,
             $noteTitle TEXT NOT NULL,
             $noteDetails INTEGER NOT NULL,
-            $noteDelete INTEGER NOT NULL DEFAULT 0
+            $noteDelete INTEGER NOT NULL DEFAULT 0,
+            $noteInsertDatetime TEXT NOT NULL,
+            $noteUpdateDatetime TEXT NOT NULL,
+            $noteDeleteDatetime TEXT NOT NULL
           )
           ''');
   }
@@ -56,7 +62,10 @@ class DatabaseHelper {
           id: maps[i]['_id'] as int,
           title: maps[i]['title'] as String,
           details: maps[i]['details'] as String,
-          delete: maps[i]['_delete'] as int);
+          delete: maps[i]['_delete'] as int,
+          insertDatetime: maps[i]['insertDatetime'] as String,
+          updateDatetime: maps[i]['updateDatetime'] as String,
+          deleteDatetime: maps[i]['deleteDatetime'] as String);
     });
   }
 
@@ -69,7 +78,10 @@ class DatabaseHelper {
           id: maps[i]['_id'] as int,
           title: maps[i]['title'] as String,
           details: maps[i]['details'] as String,
-          delete: maps[i]['_delete'] as int);
+          delete: maps[i]['_delete'] as int,
+          insertDatetime: maps[i]['insertDatetime'] as String,
+          updateDatetime: maps[i]['updateDatetime'] as String,
+          deleteDatetime: maps[i]['deleteDatetime'] as String);
     });
   }
 
@@ -82,7 +94,10 @@ class DatabaseHelper {
           id: maps[i]['_id'] as int,
           title: maps[i]['title'] as String,
           details: maps[i]['details'] as String,
-          delete: maps[i]['_delete'] as int);
+          delete: maps[i]['_delete'] as int,
+          insertDatetime: maps[i]['insertDatetime'] as String,
+          updateDatetime: maps[i]['updateDatetime'] as String,
+          deleteDatetime: maps[i]['deleteDatetime'] as String);
     });
   }
 
@@ -102,7 +117,10 @@ class DatabaseHelper {
             id: maps[i]['_id'] as int,
             title: maps[i]['title'] as String,
             details: maps[i]['details'] as String,
-            delete: maps[i]['_delete'] as int);
+            delete: maps[i]['_delete'] as int,
+            insertDatetime: maps[i]['insertDatetime'] as String,
+            updateDatetime: maps[i]['updateDatetime'] as String,
+            deleteDatetime: maps[i]['deleteDatetime'] as String);
       });
     }
   }
@@ -125,7 +143,10 @@ class DatabaseHelper {
   Future<int> moveToTrash(int id) async {
     return await _db.update(
       table,
-      {DatabaseHelper.noteDelete: 1},
+      {
+        DatabaseHelper.noteDelete: 1,
+        DatabaseHelper.noteDeleteDatetime: DateTime.now().toIso8601String()
+      },
       where: '$noteId = ?',
       whereArgs: [id],
     );
@@ -134,7 +155,7 @@ class DatabaseHelper {
   Future<int> restoreFromTrash(int id) async {
     return await _db.update(
       table,
-      {DatabaseHelper.noteDelete: 0},
+      {DatabaseHelper.noteDelete: 0, DatabaseHelper.noteDeleteDatetime: ''},
       where: '$noteId = ?',
       whereArgs: [id],
     );
@@ -153,6 +174,16 @@ class DatabaseHelper {
       table,
       where: '$noteDelete = ?',
       whereArgs: [1],
+    );
+  }
+
+  Future<void> deleteOldTrashNotes() async {
+    final thirtyDaysAgo = DateTime.now().subtract(const Duration(days: 30));
+
+    await _db.delete(
+      table,
+      where: '$noteDeleteDatetime <= ?',
+      whereArgs: [thirtyDaysAgo.toIso8601String()],
     );
   }
 }
