@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:notes/src/service/notes_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -50,9 +51,7 @@ class _CreateNoteState extends State<CreateNote> {
                       Navigator.pop(context);
                     },
                   ),
-                  const SizedBox(
-                    width: 12,
-                  )
+                  const Gap(12)
                 ],
               ),
               body: Padding(

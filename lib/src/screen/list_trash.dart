@@ -15,13 +15,13 @@ class _ListTrashState extends State<ListTrash> {
   @override
   void initState() {
     super.initState();
-    selectNote();
+    // selectNote();
   }
 
-  selectNote() {
-    final notesProvider = Provider.of<NotesProviders>(context, listen: false);
-    notesProvider.selectTrashNotes();
-  }
+  // selectNote() {
+  //   final notesProvider = Provider.of<NotesProviders>(context, listen: false);
+  //   notesProvider.selectTrashNotes();
+  // }
 
   void showDeleteConfirmationDialog(
       BuildContext context, Function onDeleteConfirmed) {
@@ -93,7 +93,7 @@ class _ListTrashState extends State<ListTrash> {
                             ),
                             Gap(12),
                             Text(
-                              'Clear Trash',
+                              'Empty Trash',
                             ),
                           ],
                         ),

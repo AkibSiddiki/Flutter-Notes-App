@@ -110,6 +110,15 @@ class DatabaseHelper {
     );
   }
 
+  Future<int> restoreFromTrash(int id) async {
+    return await _db.update(
+      table,
+      {DatabaseHelper.noteDelete: 0},
+      where: '$noteId = ?',
+      whereArgs: [id],
+    );
+  }
+
   Future<int> delete(int id) async {
     return await _db.delete(
       table,

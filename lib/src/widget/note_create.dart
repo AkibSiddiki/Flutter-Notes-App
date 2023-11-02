@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 Widget noteCreate(context) {
   return Column(
@@ -27,9 +28,7 @@ Widget noteCreate(context) {
           ),
         ),
       ),
-      const SizedBox(
-        height: 12,
-      ),
+      const Gap(12),
     ],
   );
 }

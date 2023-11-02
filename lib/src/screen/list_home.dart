@@ -24,9 +24,7 @@ class _ListHomeState extends State<ListHome> {
               'assets/icon.png',
               height: 24,
             ),
-            const SizedBox(
-              width: 12,
-            ),
+            const Gap(12),
             const Text(
               'Notes',
               style: TextStyle(fontSize: 28.0, color: Colors.amber),
@@ -54,28 +52,28 @@ class _ListHomeState extends State<ListHome> {
                       ],
                     ),
                   ),
-                  const PopupMenuItem<int>(
-                    value: 1,
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.settings,
-                          color: Colors.black,
-                        ),
-                        Gap(12),
-                        Text(
-                          "Settings",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ],
-                    ),
-                  )
+                  // const PopupMenuItem<int>(
+                  //   value: 1,
+                  //   child: Row(
+                  //     children: [
+                  //       Icon(
+                  //         Icons.settings,
+                  //         color: Colors.black,
+                  //       ),
+                  //       Gap(12),
+                  //       Text(
+                  //         "Settings",
+                  //         style: TextStyle(color: Colors.black),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // )
                 ];
               },
               onSelected: (value) {
                 if (value == 0) {
                   Navigator.pushNamed(context, '/trash');
-                } else if (value == 1) {}
+                } //else if (value == 1) {}
               }),
         ],
       ),

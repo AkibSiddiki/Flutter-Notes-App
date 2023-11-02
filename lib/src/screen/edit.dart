@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:notes/src/model/notes.dart';
 import 'package:notes/src/service/notes_provider.dart';
 import 'package:provider/provider.dart';
@@ -45,48 +46,55 @@ class _EditNoteState extends State<EditNote> {
             widget.id, titleController.text, detailsController.text);
         return true; // Allow the page to be popped
       },
-      child: Scaffold(
-        appBar: AppBar(
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(
-                Icons.delete,
-                color: Colors.white,
-                size: 24,
+      child: _loading
+          ? const Scaffold()
+          : Scaffold(
+              appBar: AppBar(
+                actions: <Widget>[
+                  IconButton(
+                    icon: const Icon(
+                      Icons.delete,
+                      color: Colors.white,
+                      size: 24,
+                    ),
+                    onPressed: () {
+                      final notesProvider =
+                          Provider.of<NotesProviders>(context, listen: false);
+                      if (pnote.delete == 0) {
+                        notesProvider.deleteNote(widget.id);
+                      } else {
+                        notesProvider.deleteNotePermanent(widget.id);
+                      }
+                      Navigator.pop(context);
+                    },
+                  ),
+                  IconButton(
+                    icon: pnote.delete == 0
+                        ? const Icon(
+                            Icons.check,
+                            color: Colors.white,
+                            size: 24,
+                          )
+                        : const Icon(
+                            Icons.restore,
+                            color: Colors.white,
+                            size: 24,
+                          ),
+                    onPressed: () {
+                      final notesProvider =
+                          Provider.of<NotesProviders>(context, listen: false);
+                      notesProvider.updateNote(widget.id, titleController.text,
+                          detailsController.text);
+                      if (pnote.delete == 1) {
+                        notesProvider.restoreNote(widget.id);
+                      }
+                      Navigator.pop(context);
+                    },
+                  ),
+                  const Gap(12)
+                ],
               ),
-              onPressed: () {
-                final notesProvider =
-                    Provider.of<NotesProviders>(context, listen: false);
-                if (pnote.delete == 0) {
-                  notesProvider.deleteNote(widget.id);
-                } else {
-                  notesProvider.deleteNotePermanent(widget.id);
-                }
-                Navigator.pop(context);
-              },
-            ),
-            IconButton(
-              icon: const Icon(
-                Icons.check,
-                color: Colors.white,
-                size: 24,
-              ),
-              onPressed: () {
-                final notesProvider =
-                    Provider.of<NotesProviders>(context, listen: false);
-                notesProvider.updateNote(
-                    widget.id, titleController.text, detailsController.text);
-                Navigator.pop(context);
-              },
-            ),
-            const SizedBox(
-              width: 12,
-            )
-          ],
-        ),
-        body: _loading
-            ? const SizedBox()
-            : Padding(
+              body: Padding(
                 padding: const EdgeInsets.all(12),
                 child: SingleChildScrollView(
                   child: Column(
@@ -118,7 +126,7 @@ class _EditNoteState extends State<EditNote> {
                   ),
                 ),
               ),
-      ),
+            ),
     );
   }
 }

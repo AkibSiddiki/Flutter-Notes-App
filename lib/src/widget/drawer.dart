@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -19,9 +20,7 @@ class MyDrawer extends StatelessWidget {
                     'assets/icon.png',
                     height: 35,
                   ),
-                  const SizedBox(
-                    width: 12,
-                  ),
+                  const Gap(12),
                   const Text(
                     'Notes',
                     style: TextStyle(fontSize: 22.0, color: Colors.amber),

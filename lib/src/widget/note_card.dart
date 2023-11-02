@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:notes/src/model/notes.dart';
 import 'package:notes/src/screen/edit.dart';
 
@@ -33,9 +34,7 @@ Widget noteCard(Note n, context) {
               maxLines: 2,
               style: const TextStyle(color: Colors.white, fontSize: 17),
             ),
-            const SizedBox(
-              height: 8,
-            ),
+            const Gap(8),
             Text(
               n.details,
               maxLines: 3,

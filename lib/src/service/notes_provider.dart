@@ -56,6 +56,15 @@ class NotesProviders extends ChangeNotifier {
     await dbHelper.moveToTrash(id);
     await dbHelper.closeDatabase();
     selectNotes();
+    selectTrashNotes();
+  }
+
+  void restoreNote(int id) async {
+    await dbHelper.init();
+    await dbHelper.restoreFromTrash(id);
+    await dbHelper.closeDatabase();
+    selectTrashNotes();
+    selectNotes();
   }
 
   void deleteNotePermanent(int id) async {
