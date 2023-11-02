@@ -182,8 +182,8 @@ class DatabaseHelper {
 
     await _db.delete(
       table,
-      where: '$noteDeleteDatetime <= ?',
-      whereArgs: [thirtyDaysAgo.toIso8601String()],
+      where: '$noteDeleteDatetime <= ? AND $noteDelete = ?',
+      whereArgs: [thirtyDaysAgo.toIso8601String(), 1],
     );
   }
 }
